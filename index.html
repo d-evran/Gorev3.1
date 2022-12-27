@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Görev 3 - Soru 1</title>
+  </head>
+  <style>
+    body {
+      margin: 50px;
+    }
+  </style>
+  <body>
+    <form onsubmit="sirala(event)">
+      <label>1'den 99'a kadar olan sayilari for döngüsü ile yan yana </label>
+      <input type="submit" value="Sirala" id="siralaBtn" />
+    </form>
+    <br />
+    <button onclick="rastgeleSayiSec()" id="rastgeleBtn" disabled>
+      Rastgele Sayi Sec
+    </button>
+    <br /><br />
+    <p id="sayilar"></p>
+
+    <script>
+      function sirala(e) {
+        e.preventDefault();
+        document.getElementById("siralaBtn").disabled = true;
+        document.getElementById("rastgeleBtn").disabled = false;
+        const sayilar = document.getElementById("sayilar");
+
+        for (let i = 1; i < 100; i++) {
+          sayilar.innerHTML += `<span>${i}</span>` + " ";
+          if (i % 10 === 0) {
+            sayilar.innerHTML += `<span><br/><br/></span>`;
+          }
+        }
+      }
+
+      function rastgeleSayiSec() {
+        let rastgeleSayi = rastgeleSayiUret();
+        const sayilar = document.getElementById("sayilar").children;
+
+        for (let i = 0; i < sayilar.length; i++) {
+          if (
+            Number(sayilar[i].firstChild.nodeValue) === rastgeleSayi &&
+            sayilar[i].style.color != "red"
+          ) {
+            sayilar[i].style.color = "red";
+            sayilar[i].style.fontWeight = "900";
+          } else if (
+            Number(sayilar[i].firstChild.nodeValue) === rastgeleSayi &&
+            sayilar[i].style.color === "red"
+          ) {
+            rastgeleSayi = rastgeleSayiUret();
+            i = -1;
+          }
+        }
+      }
+
+      function rastgeleSayiUret() {
+        return Math.floor(Math.random() * 99) + 1;
+      }
+    </script>
+  </body>
+</html>
